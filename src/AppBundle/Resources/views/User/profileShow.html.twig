@@ -1,0 +1,17 @@
+{# src/AppBundle/Resources/views/User/profileShow.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}{{'edit_profile'|trans({}, 'messages')}}{% endblock %}
+
+{% block page %}
+<div class="container">
+ {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+<h2 class="form-signin-heading text-center">{{'edit_profile'|trans({}, 'messages')}}</h2>
+<p>{{ user.username }}</p>
+<p>{{ user.email }}</p>
+ </div>   
+{% endblock %}

@@ -1,0 +1,312 @@
+
+
+#page {
+  width: 85%;
+  max-width: 1200px;
+  margin: 5em auto;
+  
+}
+
+
+/* ==================   META   ================== */
+
+#meta {
+  background-color: #00569d;
+  color: #fff;
+  padding: 0.3em 2em;
+  font-size: 0.9em;
+  height:2em; /*added by Petar */
+}
+
+#meta_left {
+  float: left;
+}
+
+#meta_right {
+  float: right;
+}
+
+
+/* ==================   LOGO   ================== */
+
+#logo {
+  width: 200px;
+  height: 80px;
+}
+
+#logo img {
+  max-width: 100%;
+  height: auto;
+  max-height: 80px;
+}
+
+
+/* ==================   SURVEY FORM   ================== */
+
+.survey_head {
+  margin: 2em 0 4em;
+}
+
+.survey_title {
+  margin-bottom: 1.5em;
+}
+
+h2.question {
+  font-weight: 300;
+  line-height: 1.35em;
+  color: #00569d;
+  margin-bottom: 1.5em;
+  font-size: 1.3em;
+}
+
+.infobox {
+  background-color: #A6C4DD;
+  color: #fff;
+  padding: 1em 1.8em;
+  line-height: 1.6em;
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+}
+
+
+
+
+
+.infobox p {
+  margin: 0;
+}
+
+
+
+/* ------------------   table   ------------------ */
+
+table {
+	width: 100%;
+  background: #fff;
+  border: 1px solid #b2cce1;
+  margin-bottom: 20px;
+}
+tbody {
+    color: #00569d;
+}
+
+label {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+tr + tr {
+  border-top: 1px solid #b2cce1;
+}
+
+tr:nth-of-type(2n+1) {
+    background-color: rgba(0, 86, 157,0.03);
+}
+
+tr:hover {
+    background-color: rgba(0, 86, 157,0.08);
+}
+
+tr:nth-of-type(11n) {
+  border-bottom: 40px solid #e0eaf3;
+}
+
+
+tr.empty {
+  background-color: transparent;
+  display: none;
+}
+
+
+
+
+tr.checked {
+  background-color: rgba(76,175,80,0.15);
+  color: #a2ada3;
+  color: #b1bdb2;
+}
+
+tr.checked:hover {
+  background-color: rgba(76,175,80,0.2);
+  color: #00569d;
+}
+
+tr.checked td:nth-of-type(1) {
+  color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 1st col = row number */
+td:nth-of-type(1) {
+  color: #00569d;
+  text-align: center;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding: 0 0.8em;
+}
+
+td:nth-of-type(2) {
+  padding: 0 1em;
+}
+
+td + td {
+  border-left: 1px solid #b2cce1;
+}
+
+td.radio {
+  text-align: center;
+  padding: 0;
+  display: table-cell;
+  width:60px;/*added by Petar. when labels are shorter it is too much wide.*/
+}
+
+
+/* ------------------   textarea   ------------------ */
+
+textarea {
+  width: 100%;
+  resize: none;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border: none;
+}
+
+
+/* ------------------   input   ------------------ */
+
+input.button {
+  background-color: #00569d;
+  color: #fff;
+  padding: 0.5em 1em;
+  border: none;
+}
+
+input.button:hover {
+  background-color: #2d66c4;
+}
+
+
+/* ------------------   input[type=radio]   ------------------ */
+/*
+
+                    show label – hide radio
+
+*/
+
+td.radio input[type=radio] {
+  display: none;
+}
+
+td.radio label {
+  display: inline-block;
+  width: 100%;
+  padding: 0.5em;
+  color: #000;
+}
+
+td.radio label:hover {
+  background-color: #A6C4DD;
+  color: #fff;
+}
+
+td.radio input[type=radio]:checked + label {
+  background: #00569d;
+  color: white;
+}
+
+
+/* ------------------   forced_choice   ------------------ */
+/*
+
+                    like radio but more columns
+
+*/
+
+.forced_choice{
+    font-size:16px;
+    font-weight:normal;
+    margin:20px 0;
+}
+
+.forced_number{
+    width: 60px;
+}
+
+.forced_label{
+    text-align: left;
+    padding: 0 1em;
+}
+
+.forced_or{
+    text-align: center;
+    width:50px;
+}
+
+
+
+.custom_scale_description{
+    background-color: #fff;
+}
+
+
+/* ------------------   multiple2Choices   ------------------ */
+/*
+
+                   4 statements in group
+        choose the best and the worst option
+
+*/
+
+.multiple2choice{
+    margin: 20px 0;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.multiple2choice_number{
+    width:60px;
+    text-align: center;
+}
+
+.multiple2choice_answers{
+    width:60px;
+    text-align: center;
+    padding: 0.5em;
+}
+
+
+
+/* ------------------   open, multi open   ------------------ */
+/*
+*/
+    
+.multipleopen{
+    margin: 20px 0;
+    font-weight: normal;
+    font-size: 16px;
+    height: 50px;
+}
+
+.multipleopen{
+    width:60px;
+    text-align: center;
+}
+
+.multipleopen{
+    width:60px;
+    text-align: center;
+    padding: 0.5em;
+}
+
+
+

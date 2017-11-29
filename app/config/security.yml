@@ -1,0 +1,59 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 15
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory:
+            memory: ~
+        our_provider:
+            entity:
+                class: AppBundle:User
+                property: login
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            pattern:    ^/
+            http_basic: ~
+            provider: our_provider
+            form_login:
+                login_path: user_login
+                check_path: user_login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path:   logout
+                target: homepage
+    access_control:
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/preregister, roles: IS_AUTHENTICATED_ANONYMOUSLY }            
+    - { path: ^/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/activation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/resetpwd, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/opencourse/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/opencourse, roles: ROLE_USER }
+    - { path: ^/teacher, roles: ROLE_USER }
+    - { path: ^/member, roles: ROLE_USER }
+    - { path: ^/check, roles: ROLE_USER }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

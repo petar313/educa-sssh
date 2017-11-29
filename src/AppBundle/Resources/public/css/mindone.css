@@ -1,0 +1,457 @@
+/*   COLORS
+
+ITO / MIND ONE Corporate Colors
+
+dark blue		00569d	0, 86, 157
+light blue		63b9e9	99, 185, 233
+teal 			008277	0, 130, 119
+light green		95c11f	149, 193, 31
+deep yellow		fbba00	251, 186, 0
+red orange		ea5b0c	234, 91, 12
+hot magenta		cf1152	207, 17, 82
+purple			792477	121, 36, 119
+
+*/
+
+
+.form-control:focus, 
+#focusedInput,
+input:focus:invalid:focus,
+textarea:focus:invalid:focus, 
+select:focus:invalid:focus, 
+.cmxform .form-group input.error, 
+.cmxform .form-group textarea.error {
+    border: 1px solid #00569d !important;
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #e2e2e4;
+	border: none;
+	border-radius: 0;
+}
+
+select {
+	background: url('../images/sort-desc_c.png') no-repeat  98% center !important;
+	background-size: 12px;
+	padding-right: 20px;
+	width: auto;
+        background-color: #fff !important;
+    width: auto;
+        
+}
+
+select:hover {
+	background-image: url('../images/sort-desc_blue.png') !important;
+}
+
+select + select {
+	margin-left: 10px;
+}
+
+
+.input_row {
+    margin-bottom: 20px;
+    padding-bottom: 0px !important;
+}
+
+input[type="checkbox"], input[type="radio"]{
+    margin-right: 5px;
+}
+
+.moved_inline{
+    margin-left: 5px;
+}
+
+
+/* 
+===============================================================================================
+
+										LOGIN SCREEN
+
+=============================================================================================== 
+*/
+
+body.login-body {
+	background:  #ffffff;
+	background-size: cover;
+
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+
+body.login-body .container {
+	width: auto;
+	margin: 0;
+	padding: 0;
+
+	display: table-row;
+	height: 100%;
+}
+
+body.login-body .container:before {
+	content: " ";
+	display: table;
+}
+
+body.login-body .signin-wrap {
+	display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+body.login-body .form-signin {
+	position: relative;
+	margin: 0 auto;
+	background: url('../images/logo_mindone_330.png')  center 30px no-repeat #fff;
+	background-color: rgba(243,243,243,0.87);
+	background-size: 80%;
+	border: 1px solid #ddd;
+}
+
+body.login-body .form-signin h2.form-signin-heading {
+	font-family: "Titillium Web",sans-serif;
+	font-size: 24px;
+	background: transparent;
+	color: #C4161C;
+	text-transform: none;
+	margin-top: 210px;
+	text-align: left;
+	padding: 0 0 0 20px;
+}
+
+body.login-body .login-wrap {
+	padding-top: 0;
+}
+
+body.login-body .registration {
+	position: relative;
+	bottom: auto;
+	margin-top: 20px;
+	color: #6B6B6B;
+}
+
+.form-signin .checkbox {
+	font-family: "Titillium Web",sans-serif;
+}
+
+body.login-body ul.top-menu {
+	margin-right: 0;
+	margin-top: -32px;
+}
+
+body.login-body ul.top-menu > li > a {
+	margin-right: 0;
+}
+
+body.login-body .login-wrap div:first-child {
+	float: none !important;
+	height: auto !important;
+	padding-bottom: 30px;
+}
+
+body.login-body button {
+	margin-top: 30px;
+}
+
+body.login-body .pull-right.top-menu .dropdown-menu::after, 
+body.login-body .pull-right.top-menu .dropdown-menu::before  {
+    left: auto !important;
+    right: 10%;
+}
+
+
+
+
+
+/* 
+===============================================================================================
+
+										sidebar menu
+
+=============================================================================================== 
+*/
+
+
+
+ul.sidebar-menu li a.active, 
+ul.sidebar-menu li a:hover, 
+ul.sidebar-menu li a:focus,
+ul.sidebar-menu li a.active .fa::before,
+ul.sidebar-menu li a:hover .fa::before, 
+ul.sidebar-menu li a:focus .fa::before,
+ul.sidebar-menu li ul.sub li a:hover, 
+ul.sidebar-menu li ul.sub li.active a {
+	color: #00569D;
+}
+#sidebar {
+	background: #fff;
+	border-right: 1px solid rgba(0, 86, 157, 0.3);
+}
+
+ul.sidebar-menu li a.active, 
+ul.sidebar-menu li a:hover, 
+ul.sidebar-menu li a:focus,
+
+ul.sidebar-menu li ul.sub li a:hover, 
+ul.sidebar-menu li ul.sub li.active a {
+	background: #E8F0F6;
+	background: rgba(0, 86, 157, 0.08);
+}
+
+ul.sidebar-menu li {
+	border-bottom: 1px solid rgba(0, 86, 157, 0.2);
+}
+
+ul.sidebar-menu li a,
+ul.sidebar-menu li ul.sub li a {
+	color: #00569d;
+	font-size: 18px;
+	font-weight: 300;
+}
+
+ul.sidebar-menu li ul.sub li {
+	background: transparent;
+}
+
+
+
+
+
+/* 
+===============================================================================================
+
+											tables
+
+=============================================================================================== 
+*/
+
+.fixed-table-container {
+	border: 1px solid #b2cce1;
+}
+
+table {
+	background-color: #fff;
+	border-bottom: 1px solid #b2cce1;
+}
+
+thead {
+	background-color: #fff !important;
+	color: #C4171D !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+	background-color: rgba(0, 86, 157,0.03)
+}
+
+.table-hover > tbody > tr:hover {
+	background-color: rgba(0, 86, 157,0.06)
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+	border-top: 1px solid #b2cce1;
+}
+
+.fixed-table-container tbody td {
+    border-left: 1px solid #b2cce1;
+}
+
+.bootstrap-table .table > thead > tr > th {
+	border-bottom: 1px solid #b2cce1;
+}
+
+tbody {
+	color: #a94442;
+}
+
+
+
+/* 
+===============================================================================================
+
+											forms
+
+=============================================================================================== 
+*/
+
+.form-signin input[type="text"], 
+.form-signin input[type="password"], 
+.form-signin input[type="email"],
+.naslov,
+.form-signin .form-control {
+	font-size: 16px;
+}
+
+.form-signin h2.form-signin-heading {
+	background: #fff;
+	border-bottom: none;
+        color: #C4161C;
+}
+
+.form-signin a, .form-signin a:hover {
+	color: #C4161C;
+}
+
+
+
+
+/* 
+===============================================================================================
+
+											top-menu
+
+=============================================================================================== 
+*/
+
+ul.top-menu > li > a:hover, 
+ul.top-menu > li > a:focus {
+	background-color: #E8F0F6;
+}
+
+.dropdown-menu.extended.logout > li > a:hover i {
+	color: #63b9e9;
+}
+
+/* menu, toggle */
+
+.sidebar-toggle-box,
+.toggle-right-box {
+	background-color: #00569d;
+}
+
+.sidebar-toggle-box .fa-bars,
+.toggle-right-box .fa-bars,
+.toggle-right-box:hover .fa-bars {
+    color: rgba(255,255,255,1);
+}
+
+.sidebar-toggle-box:hover,
+.toggle-right-box:hover {
+	background-color: #63b9e9;
+}
+
+
+
+
+
+
+/* 
+===============================================================================================
+
+											dashboard
+
+=============================================================================================== 
+*/
+
+
+
+
+
+/* job history */
+
+.msg-time-chat:hover::before {
+	background-color: #63b9e9;
+}
+
+.msg-time-chat .msg-in .text .first {
+}
+
+.msg-time-chat .msg-in .text .second {
+	color: #00569d;
+}
+
+.activity-icon.terques,
+.activity-icon.red,
+.activity-icon.purple,
+.activity-icon.green,
+.activity-icon.yellow {
+	background-color: #00569d;
+}
+
+
+/* text bg */
+
+.activity-desk {
+	background-color: #e8f0f6;
+}
+
+
+/* contact icons */
+
+.prf-contacts h2 span {
+	background-color: #63b9e9;
+}
+
+
+/* progress-bars */
+
+.progress-bar-danger {
+	background-color: #cf1152;
+}
+
+.progress-bar-warning {
+	background-color: #fbba00;
+}
+
+.progress-bar-success {
+	background-color: #95c11f;
+}
+
+.progress-bar-info {
+	background-color: #63b9e9;
+}
+
+
+/* Overview – open tasks */
+
+#overview .msg-time-chat .msg-in .text .first {
+	width: auto;
+	background: #7faace;
+}
+
+#overview .timeline-messages .msg-in .arrow {
+	border-right: 8px solid #7faace !important;
+}
+
+.msg-time-chat:hover::before {
+    background: #00569d;
+}
+
+#overview .message-body.msg-in .second.bg-terques {
+	background: transparent !important;
+	padding: 5px 0 0 10px;
+}
+
+#overview .message-body.msg-in .second.bg-terques a {
+	color: #00569d;
+	font-size: 18px;
+}
+
+/* 
+===============================================================================================
+
+								Draggable portlet
+
+=============================================================================================== 
+*/
+
+.multicolumns {
+   -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+
+.multicolumns .input_row{
+    margin-bottom: 0!important;
+}
+
+.multicolumns2 {
+   -webkit-column-count: 4; /* Chrome, Safari, Opera */
+    -moz-column-count: 4; /* Firefox */
+    column-count: 4;
+}
+

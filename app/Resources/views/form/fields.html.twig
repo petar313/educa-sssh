@@ -1,0 +1,56 @@
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+    {%- for child in form %}
+        {{- form_widget(child) -}}
+        {#{{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}#}
+    {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{%- block checkbox_widget -%}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{form_label(form)}}
+{%- endblock checkbox_widget -%}
+    
+{%- block radio_widget -%}
+    <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{form_label(form)}}
+{%- endblock radio_widget -%}
+
+
+{%- block form_row -%}
+    <div class="input_row">
+        {% if 'checkbox' not in form.vars.block_prefixes%}
+            {{- form_label(form) -}}
+        {% endif %}    
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>   
+{%- endblock form_row -%}
+
+
+{% block forced_widget %}
+    {% spaceless %}
+        {% if expanded %}
+            {% set labels = form.vars.label|split('<->') %}
+            <table {{ block('widget_container_attributes') }} class="forced_choice">
+		<tr> 
+                    <td class="forced_number">#</td>
+                    <td class="forced_label">{{labels[0]}}</td>
+                        {% set rows=0 %}
+                        
+                        {% for child in form %}	
+                            {%set rows=rows+1%}
+                            {{ form_widget(child) }}	
+                            {%if rows==2%}		
+                                <td class="forced_or"> Or </td>
+                            {%endif%}
+                        {% endfor %}		
+                    <td class="forced_label">{{labels[1]}}</td>
+                </tr>
+		</table>
+        {% else %}
+            {# just let the choice widget render the select tag #}
+            {{ block('choice_widget') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+

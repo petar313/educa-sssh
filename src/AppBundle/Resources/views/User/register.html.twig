@@ -1,0 +1,100 @@
+{# src/AppBundle/Resources/views/User/register.html.twig #}
+
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+
+
+{% block title %}{{'registration.title'|trans({}, 'messages')}}{% endblock %}
+{% block stylesheets %}
+        <style>   
+           .required:after {
+           content: "*";
+           }
+       </style>
+{% endblock %} 
+{% block body %}
+ <body class="login-body">
+    <div class="container">
+        <div class="signin-wrap">
+        <div class="form-signin2">  
+          <h2 class="form-signin-heading">{{'registration.title'|trans({}, 'messages')}}</h2>
+            <div class="login-wrap">     
+                
+        <!--System messages -->
+         {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+         <!--System messages -->
+               <p style="color:#a49999;">
+                  {{'registration.instruction2'|trans({}, 'messages')}}       
+                  {{'registration.instruction3'|trans({}, 'messages')}}
+                  {{'registration.instruction4'|trans({}, 'messages')}}</p>
+               <p>{{'registration.instruction'|trans({}, 'messages')}}</p>
+                            
+
+
+
+{% block content %}
+   
+   <div>
+    {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+  
+</div>
+
+       <div>
+            <input type="hidden" name="agree" value="no" />
+        </div>
+   <div>
+            <div class='input_row'  data-toggle="modal" data-target="#termsModal"><a href='#'>Pročitajte Uvjete korištenja</a></div>
+            <input type="hidden" name="agree" value="no" />
+   </div>
+{% endblock %}   
+ <p style="color:#a49999;">
+                  {{'registration.instruction5'|trans({}, 'messages')}}       
+                </p>
+                            
+                <div class="registration center">
+                    {{'registration.already_reg'|trans({}, 'messages')}}
+                       <a class="" href="{{ path('user_login') }}">
+                           {{'login'|trans({}, 'messages')}}
+                       </a>
+                </div>
+         
+        </div>
+        </div>
+    </div>
+         <div class="form-group">
+              <!-- Terms and conditions modal -->
+                <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="Terms and conditions" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Uvjeti korištenja</h3>
+                            </div>
+
+                            <div class="modal-body"  style="color:#777">
+                               {{include("AppBundle:User:_condition_sr.html.twig")}}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="agreeButton" data-dismiss="modal">{{'close'|trans({}, 'messages')}}</button>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Placed js at the end of the document so the pages load faster -->
+<script src="{{ asset("bundles/app/js/jquery.js")}}"></script>
+    <script src="{{ asset("bundles/app/js/bs3/js/bootstrap.min.js")}}"></script>
+
+  </body>
+{% endblock %}

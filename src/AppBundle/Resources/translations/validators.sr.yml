@@ -1,0 +1,51 @@
+## YAML Template.
+
+registration:
+    log_used: "Korisničko ime je u upotrebi"
+    log_blank: "Korisničko ime ne može biti prazno"
+    log_min: "Korisničko ime je prekratko. Minimum je 6 karaktera."
+    log_max: "Korisničko ime je predugačko. Maksimum je 255 karaktera."
+    mail_blank: "E mail ne može biti prazan"
+    mail_val: "Ovo mora biti E-mail adresa"
+    pass_blank: "Šifra ne može biti prazna."
+    
+person:
+    lastname_blank: "Prezime ne može biti prazno"
+    
+bulk:
+    wrong_file: "Molim pridružite TXT dokument."
+    
+questionnaire:
+    title_blank: "Naslov ne može biti prazan"
+    instructions_blank: "Instrukcije ne mogu biti prazne."
+    ans_text_blank: "Tekst ne može biti prazan."
+    
+user:
+    mimeTypesMessage: Nedozvoljen tip datoteke. Dozvoljen je JPG, GIF i PNG.
+    maxSizeMessage: "Slika je prevelika. Maksimalna veličina je 2 MB."
+    
+report:
+    notBlankMessage: "Morate prvo odabrati dokument"
+    mimeTypesMessage: "Ovaj tip dokumenta nije dozvoljen. Morate odabrati PDF dokument."
+    maxSizeMessage: "Dokument je preveliki. Dozvoljeno je maksimalno 2 MB."
+
+login.notblank: "Molimo unesite Korisničko ime"
+email.notblank: "Molimo unesite E-mail adresu"
+firstname.notblank: "Molimo unesite ime"
+lastname.notblank: "Molimo unesite prezime"
+telephone.notblank: "Molimo unesite broj telefona/mobitela"
+employer.notblank: "Molimo unesite naziv poslodavca/podružnica"
+gender.notblank: "Molimo odaberite spol"
+registration.mustagree: "Morate se složiti sa uslovima korišćenja"
+course.codenotblank: "Šifra tečaja ne može biti prazna"
+course.namenotblank: "Naziv tečaja ne može biti prazan"
+course.teachernotblank: "Molimo odaberite Trenera"
+material.namenotblank: "Morate uneti ime materijala"
+material.filenotblank: "Morate odabrati materijal"
+material.mimeTypesMessage: "Nedozvoljen tip datoteke. Dozvoljeni tipovi su doc, docx, pdf, ppt, pptx"
+material.maxSizeMessage: "Dokument je preveliki. Dozvoljeno je maksimalno 2 MB."
+login.tooshort: "Korisničko ime mora imati najmanje 6 karaktera"
+email.notemail: "Molimo unesite validnu E-mail adresu"
+New password can't be blank: "Nova lozinka ne može biti prazna"
+The password fields must match.: "Lozinke se moraju poklapati"
+

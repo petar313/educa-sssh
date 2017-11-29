@@ -1,0 +1,14 @@
+<h3>{%if status==3%}Završeni tečajevi{%else%}Odobreni tečajevi{%endif%}</h3>
+{% if finished is empty %}
+                    <div class="alert alert-danger">Trenutačno nemate {%if status==3%}završenih{%else%}odobrenih{%endif%} tečajeva.</div>   
+{%endif%}
+{% for course in finished %} 
+               
+    <div class="panel-body program-body " style="background-color:{{course.openCourse.course.program.color}};padding-left: 30px; padding: 5px">
+              
+              
+        <li style=" padding-left: 30px;"><a href="{{path('opencourse_show',{'id':course.openCourse.id})}}" style="color:#fff">{{ course.openCourse.course.name }}</a></li>    
+         
+    </div>
+
+{% endfor %}

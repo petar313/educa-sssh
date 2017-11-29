@@ -1,0 +1,201 @@
+{# src/AppBundle/Resources/views/Admin/userNew.html.twig #}
+
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+{% block title %} {{'new_user'|trans({}, 'messages')}} {% endblock %}
+
+{% block page %}
+   <!-- Breadcrumb  -->
+   <ol class='breadcrumb'><li>{{'administration'|trans({}, 'messages')}}</li><li><a href="{{ path('app_admin_users_index') }}">{{'users'|trans({}, 'messages')}}</a></li><li>{{'new_user'|trans({}, 'messages')}}</li></ol>
+    
+    
+    <div class="col-lg-10">
+        
+        <div class="panel">  
+          <header class="panel-heading">{{'new_user'|trans({}, 'messages')}}</header>
+            <div class="panel-body">     
+                <!--messages -->
+        
+        
+         {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+         <!--messages -->
+               <p>{{'enter_user'|trans({}, 'messages')}}</p>
+                  <div class="panel-body">
+                     <div class="position-center">    
+               {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+           
+               
+                    </div>
+                    <div>
+                        <a href="{{ path('app_admin_users_index') }}">{{'go_back'|trans({}, 'messages')}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+{%block javascript %}
+  <script type="text/javascript">
+  // setup an "add a tag" link
+var $addTagLink = $('<a href="#" class="add_duty_link btn btn-add">{{'add.function'|trans({}, 'messages')}}</a>');
+var $newLinkLi = $('<div></div>').append($addTagLink);
+
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+   var $collectionHolder = $('#user_person_duties');
+    
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+    
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find('.duty_wrapper').length);
+    
+    $addTagLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        
+        // add a new tag form (see code block below)
+        addTagForm($collectionHolder, $newLinkLi);
+        $('.select-search').select2();
+    });
+    
+    $collectionHolder.find('.duty_wrapper').each(function() {
+        
+        addTagFormDeleteLink($(this).parent());
+    });
+    
+    //courses
+    var $addCourseLink = $('<a href="#" class="add_course_link btn btn-add">{{'add.course'|trans({}, 'messages')}}</a>');
+    var $newCourseLinkLi = $('<div></div>').append($addCourseLink);
+    var $coursesHolder = $('#user_myCourses');
+    $coursesHolder.append($newCourseLinkLi);
+    $coursesHolder.data('index', $coursesHolder.find('.course_wrapper').length);
+    $addCourseLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        
+        // add a new tag form (see code block below)
+        addTagForm($coursesHolder, $newCourseLinkLi);
+        $('.select-search').select2();
+    });
+    $coursesHolder.find('.course_wrapper').each(function() {
+        
+        addTagFormDeleteLink($(this).parent());
+    });
+    
+    
+    //participations
+    var $addPartitipationLink = $('<a href="#" class="add_partitipation_link btn btn-add">{{'add.partitipation'|trans({}, 'messages')}}</a>');
+    var $newPartitipationLinkLi = $('<div></div>').append($addPartitipationLink);
+    var $partitipationsHolder = $('#user_participations');
+    $partitipationsHolder.append($newPartitipationLinkLi);
+    $partitipationsHolder.data('index', $partitipationsHolder.find('.participation_wrapper').length);
+    $addPartitipationLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        
+        // add a new tag form (see code block below)
+        addTagForm($partitipationsHolder, $newPartitipationLinkLi);
+        $('.select-search').select2();
+    });
+    $partitipationsHolder.find('.participation_wrapper').each(function() {
+        
+        addTagFormDeleteLink($(this).parent());
+    });
+    
+    
+    //programs
+    var $addProgramLink = $('<a href="#" class="add_program_link btn btn-add">{{'add.program'|trans({}, 'messages')}}</a>');
+    var $newProgramLinkLi = $('<div></div>').append($addProgramLink);
+    var $programHolder = $('#user_programs');
+    //$programHolder.append($newProgramLinkLi);
+    $programHolder.data('index', $programHolder.find('.program_wrapper').length);
+    $addProgramLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        
+        // add a new tag form (see code block below)
+        addTagForm($programHolder, $newProgramLinkLi);
+    });
+    $programHolder.find('.program_wrapper').each(function() {
+        
+        addTagFormDeleteLink($(this).parent());
+    });
+    
+});
+
+function addTagForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    
+    // get the new index
+    var index = $collectionHolder.data('index');
+    
+    // Replace '__name__label__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__label__/g, index);
+    
+    // Replace '$$name$$' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = newForm.replace(/__name__/g, index);
+    
+    
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+    
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<div></div>').append(newForm);
+    
+    // also add a remove button, just for this example
+    $newFormLi.append('<a href="#" class="remove-duty close">X</a>');
+    
+    $newLinkLi.before($newFormLi);
+    
+    // handle the removal, just for this example
+    $('.remove-duty').click(function(e) {
+        e.preventDefault();
+        
+        $(this).parent().remove();
+        
+        return false;
+    });
+}
+
+function addTagFormDeleteLink($tagFormLi) {
+    var $removeFormA = $('<a href="#" class="close">X</a>');
+    $tagFormLi.append($removeFormA);
+
+    $removeFormA.on('click', function(e) {
+        e.preventDefault();
+        $tagFormLi.remove();
+    });
+}
+
+$( "select[id$='_program']" ).prop( "disabled", true );
+$( "select[id$='_finished']" ).prop( "disabled", true );
+$("#user_Save").click(function(e){
+   $( "select[id$='_program']" ).prop( "disabled", false );
+    $( "select[id$='_finished']" ).prop( "disabled", false ); 
+});
+
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+  $('.select-search').select2();
+</script>
+{% endblock %}

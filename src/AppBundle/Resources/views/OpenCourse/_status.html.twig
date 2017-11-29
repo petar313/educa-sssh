@@ -1,0 +1,29 @@
+{%if status=="Prijavite se"%}
+        <div class="panel panel-danger text-center pb-under participate1" > 
+            <a class="btn btn-default btn-delete" href="{{path('opencourse_applicate',{"openCourse":openCourse.id})}}" style="background: #337ab7;">Prijavite se!</a> 
+        </div>
+        {% elseif status=="Završen tečaj" %}
+        <div class="panel panel-danger text-center pb-under participate2" > 
+            {{status}}  
+        </div>
+        {% elseif status=="Nije moguće prijavljivanje" %}
+        <div class="panel panel-danger text-center pb-under participate2" > 
+            {{status}}  
+        </div>
+        {% elseif status=="Na odobrenju" %}
+        <div class="panel panel-danger text-center pb-under participate3" > 
+            {{status}}  
+        </div>
+         {% elseif status=="Odobren" %}
+        <div class="panel panel-danger text-center pb-under participate4" > 
+            {{status}}  
+        </div>
+         {% elseif status=="Moj tečaj" %}
+        <div class="panel panel-danger text-center pb-under participate5" > 
+            {{status}}  
+        </div>
+         {% else%}
+        <div class="panel panel-danger text-center pb-under participate2" > 
+            {{status}}  
+        </div>
+{%endif%}

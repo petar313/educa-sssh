@@ -1,0 +1,146 @@
+
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %} {{'course.courses'|trans({}, 'messages')}} {% endblock %}
+
+{% block page %}
+ <!-- Breadcrumb  -->
+ 
+  
+ 
+    <ol class='breadcrumb'><li>Tečajevi</li></ol>
+           
+   <div class="col-sm-12">  
+
+ <div class="btn-group"> 
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{'opencourse.open'|trans({}, 'messages')}} <span class="caret"> </span></button>
+ 
+  
+   <ul class="dropdown-menu" aria-labelledby="qestiontype">
+         {% for course in courses %}        
+              <li> <a href="{{ path('opencourse_new',{'courseId':course.id}) }}" > {{course.name}} </a>  </li>
+         {%endfor%}
+   </ul>
+</div>
+     
+        
+   
+    <table id="bTable10"
+       data-striped = "true"
+       data-filter-control="true"
+       data-filter-show-clear="true"
+       data-toolbar="#filterbar"
+       data-toggle="table"
+       data-show-columns="true"
+       data-pagination="true" 
+       data-page-list="[5, 10, 20, 50, 100, 200]" 
+       data-resizable="true"
+       data-show-export="true"
+       data-click-to-select="true"
+       data-cookie="true"
+       data-cookie-id-table="saveId4"
+       class="table table-hover"
+       data-cookie="true"
+       >
+        
+        
+   <thead class="bTable-head">
+        <tr>      
+            <th data-field="nameCourse" data-align="left" data-filter-control="input" data-sortable="true"  >{{'course.name'|trans({}, 'messages')}}</th>
+            <th data-field="programCourse" data-align="left" data-sortable="true" data-filter-control="select" data-filter-data="var_programValues" >{{'course.program'|trans({}, 'messages')}}</th>
+            <th data-field="cityCourse" data-align="left" data-sortable="true" data-filter-control="input" data-sortable="true">{{'pers_info.city'|trans({}, 'messages')}}</th>
+            <th data-field="dateCourse" data-align="left" data-sortable="true" data-sorter="dateSorter">Početak</th>
+            <th data-field="dateCoursefinish" data-align="left" data-sortable="true" data-visible="false" data-sorter="dateSorter">{{'opencourse.finishdate'|trans({}, 'messages')}}</th>
+            <th data-field="category" data-align="left" data-visible="true" data-sortable="true" data-filter-control="select" data-filter-data="var_categoryValues">Kategorija</th>
+            <th data-field="visibility" data-align="left" data-visible="true" data-sortable="true"data-filter-control="select" data-filter-data="var_categoryBoolean" >{{'opencourse.visibility'|trans({}, 'messages')}}</th>
+            <th data-field="confirmed" data-align="left" data-visible="true" data-sortable="true" data-filter-control="select" data-filter-data="var_statusValues" >{{'opencourse.confirmed'|trans({}, 'messages')}}</th>
+            <th data-field="registrationFee" data-align="left" data-visible="true" data-sortable="true" data-filter-control="select" data-filter-data="var_categoryBoolean">Neplaćeno</th>
+            <th data-field="certificate" data-align="left" data-visible="true" data-sortable="true" data-filter-control="select">Cert.</th>
+            <th data-field="partMax" data-align="left" data-visible="true" data-sortable="true">{{'part_num'|trans({}, 'messages')}}</th>
+            <th data-field="evaluation" data-align="left" data-visible="true" data-sortable="true" data-filter-control="select">Eval.</th>
+            <th data-field="description" data-align="left" data-visible="false" data-sortable="true" >{{'opencourse.desription'|trans({}, 'messages')}}</th>
+            <th data-field="action" data-align="right"  > {{'action'|trans({}, 'messages')}} </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for openCourse in openCourses %}
+            <tr>
+                <td><a href="{{ path('opencourse_show', { 'id': openCourse.id }) }}"> {{ openCourse.course.name }}</td>
+                <td>{{ openCourse.course.program }}</td>
+                <td>{{ openCourse.address.city }}</td>
+                <td>{{openCourse.getStart|date('d.m.Y')}}</td>
+                <td>{{openCourse.getEnd|date('d.m.Y')}}</td>
+                <td>{{ openCourse.category }}</td>
+                <td>{% if openCourse.visibility %}Da{% else %}Ne{% endif %}</td>
+                <td>{% if openCourse.confirmed==1 %}Planiran{% elseif  openCourse.confirmed==2 %}Potvrđen{%elseif  openCourse.confirmed==3%}Otkazan{%else%}Održan{% endif %}</td>
+                <td>{% if openCourse.registrationFee %}Da ({{openCourse.kotCount}}){% else %}Ne{% endif %}</td>
+                <td>{{openCourse.sertCount}}</td>
+                <td> {{openCourse.partCount}} ({{ openCourse.partMin }} - {{ openCourse.partMax }})</td>
+                <td> {%if openCourse.evoluation !="" %}da{%else%}ne{%endif%}</td>
+                <td>{{ openCourse.description }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('opencourse_show', { 'id': openCourse.id }) }}">Prikaži</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('opencourse_edit', { 'id': openCourse.id }) }}">Izmjeni</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+        
+
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset("bundles/app/js/filter_table/jquery.base64.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/bootstrap-table.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter/bootstrap-table-filter.js" ) }}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter-control/bootstrap-table-filter-control.js"  ) }}"  type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/locale/bootstrap-table-#{app.request.getLocale()}.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/export/bootstrap-table-export.js" ) }}"  type="text/javascript"></script>
+<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+<script>
+      
+        var programValues={ 
+            "": "", 
+        {%for program in programs%}
+              "{{program.name}}":"{{program.name}}" ,
+        {%endfor%}
+            "":""
+             }; 
+            
+        var categoryValues={ "": "", 
+        "Redovni" : "Redovni", 
+        "Izvanredni otvoreni" : "Izvanredni otvoreni", 
+        "Izvanredni zatvoreni" : "Izvanredni zatvoreni",
+        "Vanjski" : "Vanjski",
+        "Tečajevi udruženih sindikata" : "Tečajevi udruženih sindikata" 
+            };
+       var categoryBoolean={ "": "", 
+        "Da" : "Da", 
+        "Ne" : "Ne" 
+            };
+        var statusValues={ "": "", 
+        "Planiran" : "Planiran", 
+        "Potvrđen" : "Potvrđen",
+        "Održan" : "Održan",
+        "Otkazan" : "Otkazan"
+            };
+            
+    function dateSorter(a, b) {
+        
+        var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+        var da = new Date(a.replace(pattern,'$3-$2-$1'));
+        var db = new Date(b.replace(pattern,'$3-$2-$1'));
+        
+        if (da.getTime() < db.getTime()) return 1;
+        if (da.getTime() > db.getTime()) return -1;
+        return 0;
+    }
+</script>
+{%endblock%}

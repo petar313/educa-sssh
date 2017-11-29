@@ -1,0 +1,94 @@
+{# src/AppBundle/Resources/views/Course/index.html.twig #}
+
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %} {{'course.courses'|trans({}, 'messages')}} {% endblock %}
+
+{% block page %}
+ <!-- Breadcrumb  -->
+
+ 
+    <ol class='breadcrumb'><li>{{'katalog'|trans({}, 'messages')}}</li><li>{{'course.courses'|trans({}, 'messages')}}</li></ol>
+      <div class="col-sm-12">   
+    <div>
+        <a href="{{ path('course_create') }}" class="btn btn-danger">{{'course.create'|trans({}, 'messages')}}</a>
+    </div>    
+ <div id="filterbar" ></div>
+<table id="bTable9"
+     data-striped = "true"
+       data-filter-control="true"
+       data-toolbar="#filterbar"
+       data-toggle="table"
+       data-show-columns="true"
+       data-page-list="[5, 10, 20, 50, 100, ALL]" 
+       data-resizable="true"
+       data-pagination="true" 
+       class="table table-hover"
+       data-click-to-select="true"
+       data-cookie="true"
+       data-cookie-id-table="saveId3"
+>
+    <thead class="bTable-head">
+    <tr>
+        <th data-field="codeCourse" data-align="left" data-sortable="true" data-visible="false">{{'course.code'|trans({}, 'messages')}}</th>
+        <th data-field="program" data-align="left" data-sortable="true" data-filter-control="select" data-filter-data="var_programValues" >{{'course.program'|trans({}, 'messages')}}</th>
+        <th data-field="name" data-align="left" data-sortable="true" >{{'course.name'|trans({}, 'messages')}}</th>
+        <th data-field="targetGroup" data-align="left" data-visible="false" data-sortable="true" >{{'course.target_group'|trans({}, 'messages')}}</th>
+        <th data-field="description" data-align="left" data-visible="false" data-sortable="true" >{{'course.description'|trans({}, 'messages')}}</th>
+        <th data-field="outcomes" data-align="left" data-visible="false" data-sortable="true" >{{'course.outcomes'|trans({}, 'messages')}}</th>
+        <th data-field="content" data-align="left" data-visible="false" data-sortable="true" >{{'course.content'|trans({}, 'messages')}}</th>
+        <th data-field="hours" data-align="left" data-sortable="true" >{{'course.durationHours'|trans({}, 'messages')}}</th>
+        <th data-field="action" data-align="right"  > {{'action'|trans({}, 'messages')}} </th>
+    </tr>
+    </thead>
+    <tbody>
+        {%for course in courses%}
+        <tr>
+            <td>{{course.codeCourse}}</td>
+            <td>{{course.program}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.targetGroup}}</td>
+            <td>{{course.description}}</td>
+            <td>{{course.outcomes}}</td>
+            <td>{{course.content}}</td>
+            <td>{{course.durationHours}}</td>
+            <td>
+                <a href="{{path("course_edit",{'id':course.id})}}">
+                   <img src="{{ asset('bundles/app/images/icons/edit.png')}}" title="Izmjene tečaja" class="action-icons">
+                </a> 
+                <a href="{{path("course_delete",{'id':course.id})}}">
+                   <img src="{{ asset('bundles/app/images/icons/delete.png')}}" title="Brisanje tečaja" class="action-icons">
+                </a>
+            </td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+ 
+<div id="log">
+</div>
+        </div>
+{%endblock%}  
+
+
+{% block javascript %}
+<script src="{{ asset("bundles/app/js/jquery-2.2.3.js")}}"></script> 
+<script src="{{ asset("bundles/app/js/bs3/js/bootstrap.min.js")}}"></script>
+<script src="{{ asset("bundles/app/js/filter_table/jquery.base64.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/bootstrap-table.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/locale/bootstrap-table-#{app.request.getLocale()}.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter/bootstrap-table-filter.js" ) }}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter-control/bootstrap-table-filter-control.js"  ) }}"  type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/export/bootstrap-table-export.js" ) }}"  type="text/javascript"></script>
+<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+<script>
+      var programValues={ 
+            "": "", 
+        {%for program in programs%}
+              "{{program.name}}":"{{program.name}}" ,
+        {%endfor%}
+            "":""
+             }; 
+      
+</script>
+{%endblock%}

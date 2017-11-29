@@ -1,0 +1,12 @@
+{# src/AppBundle/Resources/views/User/invite.html.twig #}
+
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+{% block title %}{{'create_inv'|trans({}, 'messages')}}{% endblock %}
+   
+{% block body %}
+<div class="container form-signin">
+     <h2 class="form-signin-heading text-center">Create invitation</h2>
+        {{ form(form) }}
+</div>   
+{% endblock %}

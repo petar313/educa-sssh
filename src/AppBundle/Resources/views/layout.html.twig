@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="{{ asset("bundles/app/images/shortcut_icons/favicon.ico")}}" type="image/x-icon" />
+    <title>{% block title %}Blank page{% endblock %} | EDUCA@SSSH</title>
+    
+    <!--Core CSS -->
+    <link href="{{ asset("bundles/app/css/bootstrap.css")}}" rel="stylesheet">
+    <link href="{{ asset("bundles/app/css/bootstrap-reset.css")}}" rel="stylesheet">
+    <link href="{{ asset("bundles/app/css/font-awesome.css")}}" rel="stylesheet" />
+    <link href="{{ asset("bundles/app/css/style.css")}}" rel="stylesheet" />
+    <link href="{{ asset("bundles/app/css/mindone.css")}}" rel="stylesheet" />
+    <link href="{{ asset("bundles/app/css/custom_navbar.css")}}" rel="stylesheet" />    
+{% block stylesheets %}
+    
+    
+{% endblock %} 
+  </head>  
+
+
+{% block body %}
+
+<body>
+      
+ 
+        
+<!-- HEADER begin -->
+  
+    <div class="header_l">
+      <div >
+        <a  href="{{path("homepage")}}">
+              <img src="{{ asset('bundles/app/images/educa_logo.png')}}" style=" width: 80%;"></img>
+        </a>
+      </div>
+    </div>
+      <div class="header_r">
+        <div>
+            <a target="_blank" href="http://www.sssh.hr/hr/">
+               <img src="{{ asset('bundles/app/images/sssh_logo.png')}}"style=" width: 80%;"></img>
+          </a>
+        </div>
+    </div>
+     {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <section class="wrapper">   
+     <div class="col-md-12">
+                    <nav class="navbar navbar-default">
+			<div class="container-fluid">
+                                                                                   
+                                 <ul class="nav navbar-nav navbar-right" >
+                                     <li> <a href="{{ path('user_register') }}"> {{ 'registration.Register'|trans({}, 'messages') }} </a> </li> 		
+                                </ul>
+                                        <ul class="nav navbar-nav navbar-right" >
+                                     <li> <a href="{{ path('user_login') }}"> {{ 'login'|trans({}, 'messages') }} </a> </li> 		
+                                </ul>    
+                            </div>
+                        
+                  </nav>  
+                                </div>
+                                </section>
+     {%endif%}
+  <!-- HEADER END -->
+ 
+        <!-- Log-out begin --> 
+    
+ 
+        <!-- Log-out END -->     
+   
+
+   
+ <section class="wrapper">   
+     <div class="col-md-12">
+   
+  <!--<Meni START> -->   
+
+     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}  
+   
+         <div> 
+          
+                
+           <!--<Meni ADMIN START> -->        
+            {% if app.user.role.id==2 %}
+ 
+                  <nav class="navbar navbar-default">
+			<div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>	
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li> <a href="{{ path('homepage_admin') }}">{{ 'homepage'|trans({}, 'messages') }}</a></li>
+                                    <li> <a href="{{ path('app_admin_users_index') }}">{{ 'users'|trans({}, 'messages') }}</a></li>
+
+                                    <li><a href="{{path('opencourse_index')}}">Tečajevi</a></li>
+                                                                        <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Katalog <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{path('program_index')}}">Katalog programa</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('course_index')}}">Katalog tečajeva</a></li>
+                                         
+                                        </ul>
+                                    </li>
+                                   <li class="dropdown">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Moj profil <span class="caret"></span></a>   
+                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{path('personal_info')}}">Izmijeni profil</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('change_passwd')}}">Izmijeni lozinku</a></li>
+                                             </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Izvješća <span class="caret"></span></a>   
+                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{path('app_admin_user2course_index')}}">Korisnici na tečaju</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('app_admin_teacher2opencourse_index')}}">Treneri na tečaju</a></li>
+                                         </ul>
+                                    </li>
+                                 </ul>
+                                                                
+                                 <ul class="nav navbar-nav navbar-right" >
+
+                                     <li> <a href="{{ path('logout') }}"> {{ 'layout.logout'|trans({}, 'messages') }} </a> </li> 		
+
+                                </ul>
+                            </div>
+                        </div>
+                  </nav>
+            <!--<Meni ADMIN END> --> 
+            
+            <!--<Meni TEACHER START> --> 
+                  {%elseif app.user.role.id==3%}
+         
+                  <nav class="navbar navbar-default">
+			<div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>	
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li> <a href="{{ path('homepage_member') }}">{{ 'homepage'|trans({}, 'messages') }}</a></li>
+                                    <li><a href="{{ path('opencourse_finished') }}">Završeni tečajevi</a></li>
+                                    <li><a href="{{ path('my_courses_teacher') }}">Moji tečajevi</a></li>
+                                    <li><a href="{{ path('my_open_courses_teacher') }}">Održani tečajevi</a></li>
+                                   <li class="dropdown">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Moj profil <span class="caret"></span></a>   
+                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{path('personal_info')}}">Izmijeni profil</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('change_passwd')}}">Izmijeni lozinku</a></li>
+                                             </ul>
+                                    </li>     
+                                 </ul>
+                                                                
+                                 <ul class="nav navbar-nav navbar-right" >
+
+                                     <li> <a href="{{ path('logout') }}"> {{ 'layout.logout'|trans({}, 'messages') }} </a> </li> 		
+
+                                </ul>
+                            </div>
+                        </div>
+                  </nav>
+            <!--<Meni TEACHER END> --> 
+                    {% else %}
+            <!--<Meni USER START> -->            
+               
+                  <nav class="navbar navbar-default">
+			<div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>	
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li> <a href="{{ path('homepage_member') }}">{{ 'homepage'|trans({}, 'messages') }}</a></li>
+                                    <li><a href="{{ path('opencourse_finished') }}">Završeni tečajevi</a></li>
+                                   <li class="dropdown">
+                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Moj profil <span class="caret"></span></a>   
+                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{path('personal_info')}}">Izmijeni profil</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('change_passwd')}}">Izmijeni lozinku</a></li>
+                                             </ul>
+                                    </li>     
+                                 </ul>
+                                                                
+                                 <ul class="nav navbar-nav navbar-right" >
+
+                                     <li> <a href="{{ path('logout') }}"> {{ 'layout.logout'|trans({}, 'messages') }} </a> </li> 		
+
+                                </ul>
+                            </div>
+                        </div>
+                  </nav>
+            <!--<Meni USER END> --> 
+                     {% endif %}
+           
+                  </div>
+                
+         </div> 
+  <!--<Meni END> -->  
+
+    {% endif %}
+      
+     </div>    
+     
+   </section>   
+
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message|trans({}, 'messages') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block page %}
+        ITEMS
+    {% endblock page %}
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<!--Core js-->
+<script src="{{ asset("bundles/app/js/jquery-2.2.3.js")}}"></script> 
+<script src="{{ asset("bundles/app/js/bs3/js/bootstrap.min.js")}}"></script>
+
+<script class="include" type="text/javascript" src="{{ asset("bundles/app/js/jquery.dcjqaccordion.2.7.js")}}"></script>
+<script src="{{ asset("bundles/app/js/jquery.scrollTo.min.js")}}"></script>
+<script src="{{ asset("bundles/app/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js")}}"></script>
+<script src="{{ asset("bundles/app/js/jquery.nicescroll.js")}}"></script>
+
+<script src="{{ asset("bundles/app/js/skycons/skycons.js")}}"></script>
+
+
+<!--Easy Pie Chart-->
+<script src="{{ asset("bundles/app/js/easypiechart/jquery.easypiechart.js")}}"></script>
+<!--Sparkline Chart-->
+<script src="{{ asset("bundles/app/js/sparkline/jquery.sparkline.js")}}"></script>
+<!--jQuery Flot Chart-->
+<!--<script src="{{ asset("bundles/app/js/flot-chart/jquery.flot.js")}}"></script>
+<script src="{{ asset("bundles/app/js/flot-chart/jquery.flot.tooltip.min.js")}}"></script>
+<script src="{{ asset("bundles/app/js/flot-chart/jquery.flot.resize.js")}}"></script>
+<script src="{{ asset("bundles/app/js/flot-chart/jquery.flot.pie.resize.js")}}"></script>-->
+
+
+<script src="{{ asset("bundles/app/js/iCheck/jquery.icheck.js")}}"></script>
+
+<!--common script init for all pages-->
+<script src="{{ asset("bundles/app/js/scripts.js")}}"></script>
+
+<!--icheck init -->
+<script src="{{ asset("bundles/app/js/icheck-init.js")}}"></script>
+
+
+<script type="text/javascript">
+// REQUIRED: "jQuery Query Parser" plugin.
+// https://github.com/mattsnider/jquery-plugin-query-parser
+// Minified version here:
+ (function($){var pl=/\+/g,searchStrict=/([^&=]+)=+([^&]*)/g,searchTolerant=/([^&=]+)=?([^&]*)/g,decode=function(s){return decodeURIComponent(s.replace(pl," "));};$.parseQuery=function(query,options){var match,o={},opts=options||{},search=opts.tolerant?searchTolerant:searchStrict;if('?'===query.substring(0,1)){query=query.substring(1);}while(match=search.exec(query)){o[decode(match[1])]=decode(match[2]);}return o;};$.getQuery=function(options){return $.parseQuery(window.location.search,options);};$.fn.parseQuery=function(options){return $.parseQuery($(this).serialize(),options);};}(jQuery));    
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    
+// BOOTSTRAP 3.0 - Open YouTube Video Dynamicaly in Modal Window
+// Modal Window for dynamically opening videos
+$('a[href^="https://www.youtube.com"]').on('click', function(e){
+  // Store the query string variables and values
+	// Uses "jQuery Query Parser" plugin, to allow for various URL formats (could have extra parameters)
+	var queryString = $(this).attr('href').slice( $(this).attr('href').indexOf('?') + 1);
+	var queryVars = $.parseQuery( queryString );
+ 
+	// if GET variable "v" exists. This is the Youtube Video ID
+	if ( 'v' in queryVars )
+	{
+		// Prevent opening of external page
+		e.preventDefault();
+ 
+		// Variables for iFrame code. Width and height from data attributes, else use default.
+		var vidWidth = 560; // default
+		var vidHeight = 315; // default
+		if ( $(this).attr('data-width') ) { vidWidth = parseInt($(this).attr('data-width')); }
+		if ( $(this).attr('data-height') ) { vidHeight =  parseInt($(this).attr('data-height')); }
+		var iFrameCode = '<iframe width="' + vidWidth + '" height="'+ vidHeight +'" scrolling="no" allowtransparency="true" allowfullscreen="true" src="http://www.youtube.com/embed/'+  queryVars['v'] +'?rel=0&wmode=transparent&showinfo=0" frameborder="0"></iframe>';
+ 
+		// Replace Modal HTML with iFrame Embed
+		$('#mediaModal .modal-body').html(iFrameCode);
+		// Set new width of modal window, based on dynamic video content
+		$('#mediaModal').on('show.bs.modal', function () {
+			// Add video width to left and right padding, to get new width of modal window
+			var modalBody = $(this).find('.modal-body');
+			var modalDialog = $(this).find('.modal-dialog');
+			var newModalWidth = vidWidth + parseInt(modalBody.css("padding-left")) + parseInt(modalBody.css("padding-right"));
+			newModalWidth += parseInt(modalDialog.css("padding-left")) + parseInt(modalDialog.css("padding-right"));
+			newModalWidth += 'px';
+			// Set width of modal (Bootstrap 3.0)
+		    $(this).find('.modal-dialog').css('width', newModalWidth);
+		});
+ 
+		// Open Modal
+		$('#mediaModal').modal();
+	}
+});
+ 
+// Clear modal contents on close. 
+// There was mention of videos that kept playing in the background.
+$('#mediaModal').on('hidden.bs.modal', function () {
+	$('#mediaModal .modal-body').html('');
+});    
+    
+    
+});
+
+
+</script>      
+
+{%block javascript %}
+
+   
+{% endblock %}
+<!-- Video / Generic Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <!-- content dynamically inserted -->
+        </div>
+      </div>
+    </div>
+</div>
+</body>
+{% endblock body %}
+  <div class=' navbar navbar-fixed-bottom'>  
+     
+    <img  src="{{ asset('bundles/app/images/logos.PNG')}}"style=" width: 20%;">
+  
+    </div>
+
+
+
+</html>
+

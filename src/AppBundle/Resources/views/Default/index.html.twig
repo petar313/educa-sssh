@@ -1,0 +1,275 @@
+{# src/AppBundle/Resources/views/Default/index.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}  
+{% block title %} {{'EDUCA@SSSH'|trans({},'messages')}} {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("bundles/app/css/calendar.css")}}">
+
+{% endblock %} 
+
+{% block page %}
+<div class="col-sm-12"> 
+ <div class="col-sm-8"> 
+       
+            <div class="title_course_a"> {{ 'courses1'|trans({}, 'messages') }} <img src="{{ asset('bundles/app/images/upitnik.png')}}" title="Održavanje tečaja potvrđuje se nakon prijave minimalno potrebnog broja sudionika. 
+Na potvrđene tečajeve i dalje su moguće prijave, sve do popunjavanja maksimalnog broja sudionika predviđenog za pojedini tečaj.
+">
+                <span>
+                      {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
+                       <a href="{{ path('check_permission') }}">
+                             <button type="button" class="btn btn-primary pb-btn" >{{'apply_position2'|trans({},'messages')}}</button> 
+                       </a>  
+                       {% endif %}
+                </span>
+            </div>
+
+                       
+                       
+    <div class="col-sm-12"> 
+          {% if confirmed is empty %}
+                     <div class="alert alert-danger">Trenutačno nema potvrđenih tečajeva.</div> 
+          {% else %}
+              {% for opencourse in confirmed%}
+                    <div class="col-sm-4"> 
+
+                    <!-- BEGIN Portlet PORTLET-->
+                       <!-- HEADER Portlet -->
+                         <div class="panel panel-danger">     
+                               <div class="panel-heading add" style="background-color: {{opencourse.course.program.color}}; min-height:105px ">     
+                                             <a href="{{ path('opencourse_show', { 'id': opencourse.id }) }}"  style="color:#fff"> {{ opencourse.course.name }} </a> 
+                                                <span class="tools pull-right">
+                                                      <a class="fa fa-chevron-up" href="javascript:;"></a>                                  
+                                                </span>                                
+                                 </div>
+                        <!-- BODY Portlet -->                               
+                                 <div class="panel-body pb-plus">
+                                       {{ opencourse.description }}
+                                       <a href="{{ path('opencourse_show', { 'id': opencourse.id }) }}"> (saznajte više...)</a>
+                                 </div>
+                        <!-- FOOTER Portlet --> 
+                                     <div class="panel panel-danger text-center pb-under" > 
+                                         {{ opencourse.address.city }}, {{opencourse.getStart|date('d.m.Y')}}, {{ opencourse.getNumberOfTerms }}  dan/a   
+                                     </div>
+                                       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}  
+                                            {% if is_granted('ROLE_ADMIN') == false %}
+                                                    {{ render(controller('AppBundle:OpenCourse:status',{"id":opencourse.id})) }}
+                                           {%endif%}
+                                     {%endif%}
+                         </div>
+                  </div>
+                   
+            
+              {% endfor %}
+              
+          {%endif %}
+        </div>
+        <div class="col-sm-12">
+                <div class="title_course_b"> {{ 'courses2'|trans({}, 'messages') }} <img src="{{ asset('bundles/app/images/upitnik.png')}}" title="Održavanje svakog tečaja ovisi o prijavi minimalnog broja polaznika koji je potreban za održavanje pojedinog tečaja. 
+Nakon što se za pojedini tečaj prijavi minimalno potreban broj polaznika, potvrdit ćemo održavanje tečaja i o tome izravno obavijestiti sve prijavljene polaznike.
+">
+                        <span>
+                               {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
+                               <a href="{{ path('check_permission') }}">
+                                     <button type="button" class="btn btn-primary pb-btn">{{'apply_position2'|trans({},'messages')}}</button> 
+                               </a>  
+                               {% endif %} 
+                         </span>
+                </div>
+        
+                {% if planed is empty %}
+                    <div class="alert alert-danger">Trenutačno nema planiranih tečajeva.</div>   
+                  {%else%}
+                {% for opencourse in planed%}
+                      <div class="col-sm-4"> 
+
+                        <!-- BEGIN Portlet PORTLET-->
+                           <!-- HEADER Portlet -->
+                           
+                               <div class="panel panel-danger">  
+                                   <div class="panel-heading" style="background-color: {{opencourse.course.program.color}};  min-height:105px">          
+                                                    <a href="{{ path('opencourse_show', { 'id': opencourse.id }) }}"   style="color:#fff">{{ opencourse.course.name }}</a>                                                                           
+                                                       <span class="tools pull-right">
+                                                             <a class="fa fa-chevron-up" href="javascript:;"></a>                                  
+                                                        </span>
+
+                                   </div>
+                           <!-- BODY Portlet -->  
+                                   <div class="panel-body pb-plus">
+                                         {{ opencourse.description }}
+                                         <a href="{{ path('opencourse_show', { 'id': opencourse.id }) }}"> (saznajte više...)</a>
+                                    </div>
+                            <!-- FOOTER Portlet -->         
+                                    <div class="panel panel-danger text-center pb-under" >  
+                                              {{ opencourse.address.city }}, {{opencourse.getStart|date('d.m.Y')}}, {{ opencourse.getNumberOfTerms }}  dan/a   
+                                     </div>
+                                       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}  
+                                            {% if is_granted('ROLE_ADMIN') == false %}
+                                                    {{ render(controller('AppBundle:OpenCourse:status',{"id":opencourse.id})) }}
+                                           {%endif%}   
+                                     {%endif%}
+                                </div> 
+                     </div>
+               {% endfor %}
+               {% endif %}
+    </div> 
+    </div>
+   
+     <!-- BEGIN calendar and programs-->
+        <div class="col-sm-4">
+            <!--calandar -->
+                   
+                  
+                           <!-- BODY Portlet -->  
+                           <div class="panel-body" style=" padding: 2px 0px 0px 0px">
+                               
+                                 <div class="page-header" style="margin:0px; padding: 0px">
+                                        <h3 style="text-align: center;"></h3>
+                                 </div>
+                               
+                                 <div class="btn-group btn-group-justified">
+                                        <button class="btn btn-primary pb-btn" data-calendar-nav="prev" style="width: 33%"> << </button>
+                                        <button class="btn btn-primary pb-btn" data-calendar-nav="today" style="width: 33%; background-color: #FFECEC;border-top-color: #FFECEC;color: #053555;">Danas</button>
+                                        <button class="btn btn-primary pb-btn" data-calendar-nav="next" style="width: 34%"> >> </button>
+                                 </div>
+                               
+                                 <div class="btn-group  btn-group-justified">
+                                        <button class="btn btn-danger " data-calendar-view="year" style="width: 33%">Godina</button>
+                                        <button class="btn btn-danger" data-calendar-view="month" style="width: 33%">Mjesec</button>
+                                        <button class="btn btn-danger" data-calendar-view="day" style="width: 34%">Dan</button>
+                                 </div>
+                               
+                                    <div id="calendar"></div>
+                          </div>
+        
+            <!--end calendar -->
+            
+              {%if is_granted("ROLE_USER") and is_granted('ROLE_ADMIN') == false %}
+                  {{ render(controller('AppBundle:OpenCourse:finishedWidget',{"status":4})) }}
+              {% endif %}
+              
+              {%if is_granted("ROLE_USER") and is_granted('ROLE_ADMIN') == false %}
+                  {{ render(controller('AppBundle:OpenCourse:finishedWidget',{"status":3})) }}
+              {% endif %}
+              
+            
+              {%if is_granted("ROLE_ADMIN")%}
+                  {{ render(controller('AppBundle:Admin:widget')) }}
+              {% endif %}
+              
+            <div class="program-title">  Programi:
+            </div>
+           
+           {% for program in programs %} 
+              {% if  program.id > 1 %}  
+                 <div class="panel-body program-body " style="background-color:{{program.color}};padding-left: 10px; font-size:16px">
+                           {{ program.name }}:
+                           {%for course in program.courses%}
+                               <div style=" padding-left: 10px;padding-top: 8px;font-size:12px">{{course.name}}</div>    
+                           {%endfor%}
+                 </div>
+               {% endif%} 
+            {% endfor %}
+         </div>
+ </div>  
+    <!-- Confirmation Modal -->
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <a id="bt-modal-cancel" href="#" class="btn btn-danger btn-ok" data-dismiss="modal">Otkaži</a> 
+                <a id="bt-modal-confirm" class="btn btn-danger btn-ok">OK</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- end Confirmation Modal -->
+    <!-- Information Modal -->
+<div class="modal fade" id="my-modal-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <a id="bt-modal-OK" class="btn btn-danger btn-ok">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- end Information Modal -->
+{% endblock %}    
+                                
+{%block javascript %}    
+
+	<script type="text/javascript" src="{{ asset("bundles/app/js/underscore/underscore-min.js")}}"></script>
+	<script type="text/javascript" src="{{ asset("bundles/app/js/jstimezonedetect/jstz.min.js")}}"></script>
+	<script type="text/javascript" src="{{ asset("bundles/app/js/bootstrap-calendar-master/js/calendar.js")}}"></script>
+	<script type="text/javascript" src="{{ asset("bundles/app/js/bootstrap-calendar-master/js/app.js")}}"></script>
+
+<script type="text/javascript">
+  $(function(){
+	var $myModal = jQuery('#my-modal');
+
+	// Modal to delete record
+	var $btDelete = jQuery('.btn-delete');
+	if ($btDelete.length) {
+		$btDelete.click(function(e){
+			e.preventDefault();
+
+			var url = jQuery(this).attr('href');
+			var id = url.replace(/[^0-9]/g, '');
+
+			// Objects from alert modal
+			var $dsBody = $myModal.find('div.modal-body');
+			var $dsTitle = $myModal.find('div.modal-header h3');
+			var $btConfirm = jQuery('#bt-modal-confirm');
+			var $btCancel = jQuery('#bt-modal-cancel');
+
+			$dsBody.html('<p>Jeste li sigurni da se želite prijaviti na ovaj tečaj?</p>');
+			$dsTitle.html('Delete Record');
+
+			$myModal.modal({
+				show: true
+			});
+
+
+			$btConfirm.attr('href', url).removeAttr('data-dismiss');
+			$btCancel.click(function(){
+				$dsTitle.html('Warning');
+				$dsBody.html('<p>Notice</p>');
+				$btConfirm.attr('href', '#').attr('data-dismiss', 'modal');
+			});
+		});
+	}
+
+});
+
+{%if showMessage is defined and showMessage%}
+    $(function(){
+	var $myModalInfo = jQuery('#my-modal-info');
+        
+
+        // Objects from alert modal
+	var $dsBodyInfo = $myModalInfo.find('div.modal-body');
+        var $dsTitleInfo = $myModalInfo.find('div.modal-header h3');
+        var $btOK = jQuery('#bt-modal-OK');
+
+        $dsBodyInfo.html('<p>Uspješno ste ste prijavili na tečaj. Nakon provjere s vašim sindikatom ili podružnicom (ovisno o potrebi plaćanja kotizacije), te potvrde održavanja tečaja (koja ovisi o prijavi minimalno potrebnog broja sudionika), izravno ćemo vas kontaktirati kako bismo vam potvrdili sudjelovanje.</p>');
+			$dsTitleInfo.html('Poruka');
+
+        $btOK.click(function(){
+                $dsTitleInfo.html('Warning');
+                $dsBodyInfo.html('<p>Notice</p>');
+                $btOK.attr('href', '#').attr('data-dismiss', 'modal');
+        });
+        
+        $myModalInfo.modal({
+                show: true
+        });
+});
+	
+    {%endif%}
+</script>
+        
+{% endblock %}

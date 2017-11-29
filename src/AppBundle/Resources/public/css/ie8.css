@@ -1,0 +1,55 @@
+/* IE 8 STYLES */
+
+
+
+.infobox {
+  background-color: #ecf3fe;
+}
+
+
+tr.empty {
+  display: table-row;
+}
+
+tr:nth-of-type(11n) {
+  border-bottom: 0;
+}
+
+
+
+
+tr {
+	background-color: #f2f2f2;
+}
+
+tr:hover{
+	background-color: #e0e0e0;
+}
+
+tr.checked {
+  background-color: #e4f3e5;
+}
+
+tr.checked:hover {
+  background-color: #dbefdc;
+}
+
+
+
+
+
+
+/* ------------------   input[type=radio]   ------------------ */
+
+td.radio:hover {
+  background-color: #4285F4;
+}
+
+input[type=radio] {
+  display: inline-block;
+}
+
+label {
+  display: none;
+}
+

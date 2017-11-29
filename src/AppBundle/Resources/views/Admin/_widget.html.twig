@@ -1,0 +1,11 @@
+<div class="program-title">  Akcije:</div>
+<div>
+        <div class="col-sm-6 {%if reg>0%}red {%endif%}panel-heading-cust  "> <a href="{{ path('app_admin_users_index')}}" style="color:#fff"> Registracije {{reg}} </a></div>
+        <div class="col-sm-6 {%if app>0%}red {%endif%}panel-heading-cust "><a href="{{ path('app_admin_users_index')}}" style="color:#fff">Prijave {{app}}</a></div>
+        <div class="col-sm-6 {%if fee>0%}red {%endif%}panel-heading-cust "><a href="{{ path('opencourse_index')}}" style="color:#fff"> Kotizacija  {{fee}} </a></div>
+        <div class="col-sm-3 {%if cert>0%}red {%endif%}panel-heading-cust "><a href="{{ path('app_admin_users_index')}}" style="color:#fff"> Cert {{cert}} </a></div>
+        <div class="col-sm-3 {%if dipl>0%}red {%endif%}panel-heading-cust "><a href="{{ path('app_admin_users_index')}}" style="color:#fff"> Dipl  {{dipl}}</a> </div>        
+        <div class="col-sm-6 {%if plannedCount>0%}red {%endif%}panel-heading-cust "><a href="{{ path('opencourse_index')}}" style="color:#fff">Planirani  {{plannedCount}}</a></div>
+        <div class="col-sm-6 {%if evaluationCount>0%}red {%endif%}panel-heading-cust "><a href="{{ path('opencourse_index')}}" style="color:#fff">Evaluacija  {{evaluationCount}}</a></div>
+</div>
+

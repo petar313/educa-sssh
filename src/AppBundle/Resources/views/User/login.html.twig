@@ -1,0 +1,185 @@
+{# src/AppBundle/Resources/views/User/login.html.twig #}
+
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block title %}{{'sign_in.title'|trans({}, 'messages')}}{% endblock %}
+
+
+{% block body %}
+  
+
+    <body class="login-body">
+        
+ 
+    <div class="container">
+ 
+        
+     <div class="signin-wrap">
+            
+  
+      <form class="form-signin" action="{{ path('user_login') }}" method="POST">
+        <h2 class="form-signin-heading">{{'sign_in.title'|trans({}, 'messages')}}</h2>
+        <!--messages -->
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'messages') }}</div>
+        {% endif %}
+        
+         {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+        <!--messages -->
+        
+        
+        
+        <div class="login-wrap">
+            
+           
+            
+                <input type="text" id="username" name="_username" class="form-control" placeholder="{{'username'|trans({}, 'messages')}}" autofocus>
+                <input type="password" id="password" name="_password" class="form-control" placeholder="{{'password'|trans({}, 'messages')}}">
+          
+            <label class="checkbox">
+                <input type="checkbox" name="remember-me" value="remember-me"> {{'sign_in.remember_me'|trans({}, 'messages')}}
+                <span class="pull-right">
+                    <a data-toggle="modal" href="#myModal">{{'sign_in.forgot_pass'|trans({}, 'messages')}} </a>
+
+                </span>
+            </label>
+            <button class="btn btn-lg btn-danger btn-block" type="submit">{{'sign_in.signin'|trans({}, 'messages')}}</button>
+
+            <div class="registration">
+                {{'sign_in.none_account'|trans({}, 'messages')}}
+                <a href="{{ path('user_register')}}">
+                {{'sign_in.create_account'|trans({}, 'messages')}}
+                </a>
+            </div>
+        <!--  <div class="registration">
+                <a href="https://www.youtube.com/watch?v=mxJJ640VeUA?yt=cc">{{'help'|trans({}, 'messages')}}</a>
+            </div> -->
+        </div>
+                
+          
+          
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+      </form>
+
+     </div>
+    </div>
+    
+
+         
+<!-- Modal -->
+          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      {{ form_start(reset_form) }}
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">{{'sign_in.forgot_pass'|trans({}, 'messages')}}</h4>
+                      </div>
+                      <div class="modal-body">
+                         
+                      
+            
+                        {{ form_widget(reset_form, {'attr': {'class': 'input_row'}}) }}
+                       
+Ako ste zaboravili svoje korisničko ime ili e-mail adresu koju ste koristili prilikom registracije, javite nam se mailom na educa@sssh.hr, ili telefonski na 01 46 55 048 kako bismo provjerili vaš korisnički račun i poslali vam novu lozinku.
+
+                      </div>
+                      <div class="modal-footer">
+                          <button data-dismiss="modal" class="btn btn-danger" type="button">{{'cancel'|trans({}, 'messages')}}</button>
+                          <button class="btn btn-danger" type="submit">{{'submit'|trans({}, 'messages')}}</button>
+                      </div>
+                      {{ form_end(reset_form) }}
+                      
+                  </div>
+              </div>
+          </div>
+          <!-- modal -->
+          
+<!-- Video / Generic Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <!-- content dynamically inserted -->
+    </div>
+  </div>
+</div>
+</div>
+
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!--Core js-->
+<script src="{{ asset("bundles/app/js/jquery-2.2.3.js")}}"></script> 
+<script src="{{ asset("bundles/app/js/bs3/js/bootstrap.min.js")}}"></script>
+<script type="text/javascript">
+// REQUIRED: "jQuery Query Parser" plugin.
+// https://github.com/mattsnider/jquery-plugin-query-parser
+// Minified version here:
+ (function($){var pl=/\+/g,searchStrict=/([^&=]+)=+([^&]*)/g,searchTolerant=/([^&=]+)=?([^&]*)/g,decode=function(s){return decodeURIComponent(s.replace(pl," "));};$.parseQuery=function(query,options){var match,o={},opts=options||{},search=opts.tolerant?searchTolerant:searchStrict;if('?'===query.substring(0,1)){query=query.substring(1);}while(match=search.exec(query)){o[decode(match[1])]=decode(match[2]);}return o;};$.getQuery=function(options){return $.parseQuery(window.location.search,options);};$.fn.parseQuery=function(options){return $.parseQuery($(this).serialize(),options);};}(jQuery));
+
+// YOUTUBE VIDEO CODE
+$(document).ready(function(){
+	
+// BOOTSTRAP 3.0 - Open YouTube Video Dynamicaly in Modal Window
+// Modal Window for dynamically opening videos
+$('a[href^="https://www.youtube.com"]').on('click', function(e){
+  // Store the query string variables and values
+	// Uses "jQuery Query Parser" plugin, to allow for various URL formats (could have extra parameters)
+	var queryString = $(this).attr('href').slice( $(this).attr('href').indexOf('?') + 1);
+	var queryVars = $.parseQuery( queryString );
+ 
+	// if GET variable "v" exists. This is the Youtube Video ID
+	if ( 'v' in queryVars )
+	{
+		// Prevent opening of external page
+		e.preventDefault();
+ 
+		// Variables for iFrame code. Width and height from data attributes, else use default.
+		var vidWidth = 560; // default
+		var vidHeight = 315; // default
+		if ( $(this).attr('data-width') ) { vidWidth = parseInt($(this).attr('data-width')); }
+		if ( $(this).attr('data-height') ) { vidHeight =  parseInt($(this).attr('data-height')); }
+		var iFrameCode = '<iframe width="' + vidWidth + '" height="'+ vidHeight +'" scrolling="no" allowtransparency="true" allowfullscreen="true" src="http://www.youtube.com/embed/'+  queryVars['v'] +'?rel=0&wmode=transparent&showinfo=0" frameborder="0"></iframe>';
+ 
+		// Replace Modal HTML with iFrame Embed
+		$('#mediaModal .modal-body').html(iFrameCode);
+		// Set new width of modal window, based on dynamic video content
+		$('#mediaModal').on('show.bs.modal', function () {
+			// Add video width to left and right padding, to get new width of modal window
+			var modalBody = $(this).find('.modal-body');
+			var modalDialog = $(this).find('.modal-dialog');
+			var newModalWidth = vidWidth + parseInt(modalBody.css("padding-left")) + parseInt(modalBody.css("padding-right"));
+			newModalWidth += parseInt(modalDialog.css("padding-left")) + parseInt(modalDialog.css("padding-right"));
+			newModalWidth += 'px';
+			// Set width of modal (Bootstrap 3.0)
+		    $(this).find('.modal-dialog').css('width', newModalWidth);
+		});
+ 
+		// Open Modal
+		$('#mediaModal').modal();
+	}
+});
+ 
+// Clear modal contents on close. 
+// There was mention of videos that kept playing in the background.
+$('#mediaModal').on('hidden.bs.modal', function () {
+	$('#mediaModal .modal-body').html('');
+});
+ 
+});     
+</script>
+    
+  {% endblock %}

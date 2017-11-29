@@ -1,0 +1,70 @@
+   <style>
+ body
+ {
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+table
+{
+    border-collapse: separate;
+}
+
+tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content:  counter(Serial); /* Display the counter */
+}
+    </style>
+
+<table id="bTable19"
+       data-striped = "true"
+       data-filter-control="true"
+       data-filter-show-clear="true"
+       data-toolbar="#filterbar"
+       data-toggle="table"
+       data-show-columns="true"
+       data-pagination="true" 
+       data-page-list="[5, 10, 20, 50, 100, 200]" 
+       data-resizable="true"
+       data-show-export="true"
+       data-click-to-select="true"
+       data-cookie="true"
+       data-cookie-id-table="saveId4"
+       class="table table-hover"
+       data-cookie="true"
+>
+    <thead class="bTable-head">
+        <tr>
+            <th>Br</th>
+            <th data-field="firstname" data-align="left" data-sortable="true" data-filter-control="input"  >{{'pers_info.firstname'|trans({}, 'messages')}}</th>
+            <th data-field="lastname" data-align="left" data-sortable="true" data-filter-control="input" >{{'pers_info.lastname'|trans({}, 'messages')}}</th>
+            <th data-field="email" data-align="left" data-sortable="true" data-filter-control="input"  >{{'email'|trans({}, 'messages')}}</th>
+            <th data-field="syndicate" data-align="left" data-sortable="true" >{{'offer.syndicate'|trans({}, 'messages')}}</th>
+            <th data-field="telephone" data-align="left" data-sortable="true" >{{'pers_info.telephone'|trans({}, 'messages')}}</th>
+            <th data-field="partstatus" data-align="left" data-sortable="true" data-filter-control="select" >{{'participant.status'|trans({}, 'messages')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+
+{%for participant in participants%}
+    <tr>
+        <td></td>
+        
+        <td><a href="{{path('admin_edit_user',{"id":participant.user.id})}}">{{participant.user.person.firstname}} </td>
+        <td><a href="{{path('admin_edit_user',{"id":participant.user.id})}}">{{participant.user.person.lastname}} </td>
+        <td><a href="{{path('admin_edit_user',{"id":participant.user.id})}}">{{participant.user.email}} </td>
+        <td>{{participant.user.person.telephone}} </td>
+        <td> {% if participant.status== 5 %} 
+                Na odobrenju 
+            {% elseif participant.status==4 %}
+                Odobren 
+            {% elseif participant.status==3 %}
+                Završen
+            {% else %}
+                Odbijen/Nije završen
+            {% endif %}</td>
+    </tr>    
+{%endfor%}
+
+    </tbody>
+</table>

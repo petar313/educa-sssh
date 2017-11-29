@@ -1,0 +1,47 @@
+{# src/AppBundle/Resources/views/User/activation.html.twig #}
+<p>
+    {{'mail.dear'|trans({}, 'messages')}}
+</p>
+<br>
+<p>
+    {{'mail.welcome'|trans({}, 'messages')}}
+</p>
+<p>
+    {{'mail.welcome2'|trans({}, 'messages')}}
+</p>
+<p>
+    {{'mail.username'|trans({}, 'messages')}} {{user.login}}
+</p>
+<p>
+    {{'mail.password'|trans({}, 'messages')}} {{plainPassword}}
+</p>
+<p>
+    {{'mail.change_pass'|trans({}, 'messages')}} 
+</p>
+<p>
+    {{'mail.welcome3'|trans({}, 'messages')}}
+</p>
+<p>
+   {{'mail.activate_account'|trans({}, 'messages')}}
+</p>
+<p>
+ <a href="{{ url('homepage') }}activation?email={{user.getEmail}}&code={{user.getActivationhash}}">{{'mail.link'|trans({}, 'messages')}}</a>
+</p>
+
+<br>
+<p>
+   {{'mail.foot1'|trans({}, 'messages')}}
+</p>
+<p>
+   {{'mail.foot2'|trans({}, 'messages')}}
+</p>
+<p>
+   {{'mail.foot3'|trans({}, 'messages')}}
+</p>
+<p>
+   {{'mail.foot4'|trans({}, 'messages')}}
+</p>
+<p>
+   {{'mail.foot5'|trans({}, 'messages')}}
+</p>
+ 

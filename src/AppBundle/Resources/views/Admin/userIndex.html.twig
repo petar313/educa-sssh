@@ -1,0 +1,310 @@
+{# src/AppBundle/Resources/views/Admin/userIndex.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block title %} {{'users'|trans({}, 'messages')}} {% endblock %}
+
+{% block page %}
+    
+  
+  <div class="col-sm-12">   
+   
+    
+    <!--messages -->
+       
+        
+         {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-warning">
+                {{ flashMessage }}
+            </div>
+         {% endfor %}
+         <!--messages -->
+    
+    <div class="col-sm-2">
+        <a href="{{ path('admin_create_user') }}" class="btn btn-danger" style="margin-top: 10px;">
+            {{'new_user'|trans({}, 'messages')}}
+        </a>
+    </div >
+    
+    <div id="filterbar" style="padding-bottom: 5px; width: 200px;" >
+        <select class="form-control selector">
+                <option value="">{{'with_select'|trans({}, 'messages')}}</option>
+                <option value="attach_syndicate">{{'attach_to_syndicate'|trans({}, 'messages')}}</option>
+                <option value="delete">{{'delete'|trans({}, 'messages')}}</option>
+            </select>
+    </div>
+            <div id="filterbar" ></div>
+<table id="bTable1"
+       data-striped = "true"
+       data-filter-control="true"
+       data-filter-show-clear="true"
+       data-url="{{ url('get_users_ajax_call') }}"
+       data-toolbar="#filterbar"
+       data-toggle="table"
+       data-show-export="true"
+       data-show-columns="true"
+       data-side-pagination="server" 
+       data-pagination="true" 
+       data-page-list="[5, 10, 20, 50, 100, 500]"
+       data-resizable="true"
+       class="table table-hover"
+       data-click-to-select="true"
+       data-cookie="true"
+       data-cookie-id-table="saveId2"
+>
+    <thead class="bTable-head">
+    <tr>
+        <th data-field="needsAction" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'needsAction'|trans({}, 'messages')}}</th>
+        <th data-field="state" data-checkbox="true"></th>
+        <th data-field="firstname" data-align="left" data-sortable="true" data-filter-control="input"  >{{'pers_info.firstname'|trans({}, 'messages')}}</th>
+        <th data-field="lastname" data-align="left" data-sortable="true" data-filter-control="input" >{{'pers_info.lastname'|trans({}, 'messages')}}</th>
+        <th data-field="login" data-align="left" data-sortable="true" data-visible="false" >{{'username'|trans({}, 'messages')}}</th>
+        <th data-field="email" data-align="left" data-sortable="true" data-filter-control="input"  >{{'email'|trans({}, 'messages')}}</th>
+        <th data-field="telephone" data-align="left" data-sortable="true" data-filter-control="input"  >{{'pers_info.telephone'|trans({}, 'messages')}}</th>
+        <th data-field="gender" data-align="left" data-sortable="true" data-visible="false" data-filter-control="select" data-filter-data="var_GenderValues" >{{'pers_info.gender'|trans({}, 'messages')}}</th>
+        <th data-field="syndicate" data-align="left" data-sortable="true" data-filter-control="select" data-visible="true" data-filter-data="var_SyndicateValues">{{'offer.syndicate'|trans({}, 'messages')}}</th>
+        <th data-field="employer" data-align="left" data-sortable="true" data-filter-control="input" data-visible="true">{{'pers_info.employer'|trans({}, 'messages')}}</th>
+        <th data-field="isActive" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_ActivValues" >{{'is_active'|trans({}, 'messages')}}</th>
+        <th data-field="reg" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'reg'|trans({}, 'messages')}}</th>
+        <th data-field="app" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'app'|trans({}, 'messages')}}</th>
+        <th data-field="fee" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'fee'|trans({}, 'messages')}}</th>
+        <th data-field="cert" data-align="left" data-sortable="true" data-visible="true" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'cert'|trans({}, 'messages')}}</th>
+        <th data-field="dipl" data-align="left" data-sortable="true" data-visible="false" data-filter-control="select" data-filter-data="var_YesNoValues" >{{'dipl'|trans({}, 'messages')}}</th>        
+        <th data-field="role" data-align="lrft" data-sortable="true" data-visible="false" data-filter-control="select" data-filter-data="var_RoleValues" data-visible="true">{{'role'|trans({}, 'messages')}}</th>
+        <th data-field="sendSerificateTo" data-align="left" data-sortable="true" data-visible="false" >{{'sendSerificateTo'|trans({}, 'messages')}}</th>        
+        <th data-field="officialAddressStreet" data-align="left" data-sortable="true" data-visible="false" >{{'officialAddressStreet'|trans({}, 'messages')}}</th>        
+        <th data-field="officialAddressCity" data-align="left" data-sortable="true" data-visible="false" >{{'officialAddressCity'|trans({}, 'messages')}}</th>        
+        <th data-field="officialAddressZip" data-align="left" data-sortable="true" data-visible="false" >{{'officialAddressZip'|trans({}, 'messages')}}</th>        
+        <th data-field="privatAddressStreet" data-align="left" data-sortable="true" data-visible="false"  >{{'privatAddressStreet'|trans({}, 'messages')}}</th>        
+        <th data-field="privatAddressCity" data-align="left" data-sortable="true" data-visible="false"  >{{'privatAddressCity'|trans({}, 'messages')}}</th>
+        <th data-field="privatAddressZip" data-align="left" data-sortable="true" data-visible="false"  >{{'privatAddressZip'|trans({}, 'messages')}}</th>
+        <th data-field="birthdate" data-align="left" data-sortable="true" data-visible="false"  >{{'pers_info.birthdate'|trans({}, 'messages')}}</th>
+        <th data-field="actions" data-align="right" data-sortable="false" width="auto" > {{'action'|trans({}, 'messages')}} </th>
+    </tr>
+    </thead>
+</table>
+ 
+<div id="log">
+</div>
+
+       
+
+       
+<!-- Confirmation Modal -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{{'delete_users'|trans({}, 'messages')}}</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p></p>
+                    <p>{{'are_you_sure'|trans({}, 'messages')}}</p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'cancel'|trans({}, 'messages')}}</button>
+                    <a class="btn btn-default btn-delete-ok">{{'ok'|trans({}, 'messages')}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Confirmation Modal -->
+    
+    
+    <!-- Attach OU Modal -->
+    <div class="modal fade" id="choose-ou" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"> {{'attach_selected_to_ou'|trans({}, 'messages')}}</h4>
+                </div>
+            
+                
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'cancel'|trans({}, 'messages')}}</button>
+                    <a class="btn btn-default btn-ou-ok">{{'ok'|trans({}, 'messages')}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Attach OU Modal -->
+    
+    
+    <!-- Attach Domain Modal -->
+    <div class="modal fade" id="choose-syndicate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"> {{'attach_selected_to_syndicate'|trans({}, 'messages')}}</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p></p>
+                    <p>
+                        <label>{{'choose_syndicate'|trans({}, 'messages')}}</label>
+                        <select name="syndicate" id="syndicate">
+                            {%for syndicate in syndicates%}
+                                <option value="{{syndicate.id}}">{{syndicate.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'cancel'|trans({}, 'messages')}}</button>
+                    <a class="btn btn-default btn-syndicate-ok">{{'ok'|trans({}, 'messages')}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+    <!-- end Attach Domain Modal -->
+    
+{%endblock%}  
+
+
+{% block javascript %}
+
+<script src="{{ asset("bundles/app/js/filter_table/jquery.base64.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/bootstrap-table.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter/bootstrap-table-filter.js" ) }}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/filter-control/bootstrap-table-filter-control.js"  ) }}"  type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/export/bootstrap-table-export.js" ) }}"  type="text/javascript"></script>
+<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/editable/bootstrap-table-editable.js"  ) }}"  type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/editable/bootstrap-editable.js"  ) }}"  type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/extensions/cookie/bootstrap-table-cookie.js" ) }}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-datepicker/js/bootstrap-datepicker-#{app.request.getLocale()}.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/bs-table/locale/bootstrap-table-#{app.request.getLocale()}.js")}}" type="text/javascript"></script>
+<script src="{{ asset("bundles/app/js/items.js")}}" type="text/javascript"></script>
+<script type="text/javascript">
+    var GenderValues={ "": "", "{{'male'|trans({}, 'messages')}}" : "{{'male'|trans({}, 'messages')}}", "{{'female'|trans({}, 'messages')}}" : "{{'female'|trans({}, 'messages')}}" };
+    var ActivValues={ "": "", "1" : "{{'active'|trans({}, 'messages')}}", "0" : "{{'locked'|trans({}, 'messages')}}" };
+    var YesNoValues={ "": "", "1" : "da", "0" : "ne" };
+   
+   var RoleValues={ "": "", 
+        {%for role in roles%}
+              "{{role.id}}":"{{role.name}}" ,
+        {%endfor%}
+            "":""
+             }; 
+             
+    var SyndicateValues={ "": "", 
+        {%for syndicate in syndicates%}
+              "{{syndicate.id}}":"{{syndicate.name}}" ,
+        {%endfor%}
+            "":""
+             }; 
+    
+   
+     var receivenewsletter={ 
+        "": "",
+        "false" : "{{'afalse'|trans({}, 'messages')}}", 
+         "true" : "{{'atrue'|trans({}, 'messages')}}" 
+            };
+            
+    /*Bootstrap table*/        
+    var checkedRows = [];
+
+    $('#bTable1').on('check.bs.table', function (e, row) {
+      checkedRows.push({login: row.login});
+      console.log(checkedRows);
+    });
+
+    $('#bTable1').on('uncheck.bs.table', function (e, row) {
+      $.each(checkedRows, function(index, value) {
+        if (value.login === row.login) {
+          checkedRows.splice(index,1);
+        }
+      });
+      console.log(checkedRows);
+    });
+
+
+    $('#bTable1').on('check-all.bs.table', function (e, rows) {
+      checkedRows = [];
+      $.each(rows, function(index, value) {
+        checkedRows.push({login: value.login});
+      });
+      console.log(checkedRows);
+    });
+
+    $('#bTable1').on('uncheck-all.bs.table', function (e, rows) {
+      checkedRows = [];
+      console.log(checkedRows);
+    });
+
+    
+    $('.selector').on('change',function(){
+  
+        if(checkedRows.length===0)
+        {
+                  alert("{{'select.user'|trans({}, 'messages')}}");
+                  this.selectedIndex=0;
+                  return;
+        }
+
+         if(this.value ==="delete")
+         {
+             $('#confirm-delete').modal() ;
+         }
+         else 
+             if(this.value==="attach_ou")
+              {
+                  $('#choose-ou').modal() ;
+              }else 
+                  if(this.value==="attach_syndicate")
+                  {
+                      $('#choose-syndicate').modal() ;
+                  }
+
+         this.selectedIndex=0;
+    });
+    
+    
+    $('.btn-delete-ok').on( 'click',function(e){
+        var users="";
+        $.each(checkedRows, function(index, value) {
+              users=users+","+value.login;
+         });
+        post("{{path('admin_delete_users')}}",{'checkedRows': users.substring(1)});
+    });
+    
+    
+    $('.btn-syndicate-ok').on( 'click',function(e){
+        var users="";
+        $.each(checkedRows, function(index, value) {
+              users=users+","+value.login;
+         });
+        post("{{path('admin_attach_users_syndicate')}}",{'checkedRows': users.substring(1),'syndicate': $( "#syndicate" ).val()});
+    });
+    
+    
+    $('.btn-ou-ok').on( 'click',function(e){
+        var users="";
+        $.each(checkedRows, function(index, value) {
+              users=users+","+value.login;
+         });
+      
+        post("{{path('admin_attach_users_ou')}}",{'checkedRows': users.substring(1),'ou': $( "#ou" ).val()});
+    });
+
+
+</script>
+
+{%endblock%}
